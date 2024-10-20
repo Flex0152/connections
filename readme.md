@@ -4,3 +4,4 @@ Relies on Windows' mstsc.
 
 ## Todo
 Error handling should be expanded.
+Old endpoints cannot be removed yet.

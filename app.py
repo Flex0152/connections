@@ -6,24 +6,23 @@ import csv
 
 
 def add_new_connection(displayname: str, fqdn: str):
-    """Fügt eine neue Zeile in die Datei ein. Erstellt die Datei, wenn noch nicht vorhanden."""
+    """Adds a new line to the file. Creates the file if it doesn't exist"""
     with open("connections.csv", "a", newline='') as file:
         writer = csv.writer(file, delimiter=";")
         writer.writerow([fqdn, displayname])
 
 def read_connections():
-    """Liest alle Zeilen der CSV ein und gibt sie als Liste von Listen zurück.
-    Gibt es noch keine csv, wird eine leere Liste zurückgegeben."""
+    """Reads the lines of the file and returns them as a list of lists.
+    If the file does not exist, an empty list is returned."""
     try:
         with open("connections.csv") as file:
             reader = csv.reader(file, delimiter=";")
             return [x for x in reader]
-    except:
+    except FileNotFoundError:
         return []
 
 def new_endpoint():
-    """Ist der Computer noch nicht in der Auswahl, kann er 
-    hier angegeben werden"""
+    """Adds a new Endpoint to the csv file."""
     displayname = input_dialog(
         title="Remote Connections",
         text="Gib den Namen des Endpunkts an"
@@ -40,9 +39,8 @@ def new_endpoint():
 
 
 def main():
-    """Liest die connections über die csv ein. Wird der Punkt 'other' gewählt, kann ein
-    neuer Endpunkt hinzugefügt werden. Anschließend startet das Programm, mit dem neuen Endpunkt, neu.
-    Das Programm endet entweder mit der Wahl eines Endpoints oder über STRG+C."""
+    """Reads all endpoints from the file. If "other" is selected, a new endpoint can be added. 
+    The program then restarts with the new endpoint. If no endpoints exist, "other" is the only option."""
     endpoints = read_connections()
     endpoints.append(["other", "other"])
     # Gibt eine Auswahl an Remote Computer
