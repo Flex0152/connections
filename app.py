@@ -43,7 +43,7 @@ def main():
     The program then restarts with the new endpoint. If no endpoints exist, "other" is the only option."""
     endpoints = read_connections()
     endpoints.append(["other", "other"])
-    # Gibt eine Auswahl an Remote Computer
+    # Creates a selection of remote Computers
     result = radiolist_dialog(
         title="Remote Connections",
         text="Wähle ein Endpunkt",
