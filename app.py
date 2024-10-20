@@ -50,6 +50,10 @@ def main():
         values=endpoints
     ).run()
 
+    # If 'Cancel' was selected, the program will abort 
+    if result == None:
+        return
+
     if result != "other":
         run(["pwsh", "-c", "mstsc", "-v", result])
     else:
