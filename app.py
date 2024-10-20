@@ -6,16 +6,20 @@ import csv
 
 
 def add_new_connection(displayname: str, fqdn: str):
-    """Fügt eine neue Zeile in die Datei ein"""
+    """Fügt eine neue Zeile in die Datei ein. Erstellt die Datei, wenn noch nicht vorhanden."""
     with open("connections.csv", "a", newline='') as file:
         writer = csv.writer(file, delimiter=";")
         writer.writerow([fqdn, displayname])
 
 def read_connections():
-    """Liest alle Zeilen der CSV ein und gibt sie als Liste von Listen zurück"""
-    with open("connections.csv") as file:
-        reader = csv.reader(file, delimiter=";")
-        return [x for x in reader]
+    """Liest alle Zeilen der CSV ein und gibt sie als Liste von Listen zurück.
+    Gibt es noch keine csv, wird eine leere Liste zurückgegeben."""
+    try:
+        with open("connections.csv") as file:
+            reader = csv.reader(file, delimiter=";")
+            return [x for x in reader]
+    except:
+        return []
 
 def new_endpoint():
     """Ist der Computer noch nicht in der Auswahl, kann er 
